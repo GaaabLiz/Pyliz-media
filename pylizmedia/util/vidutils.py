@@ -3,7 +3,6 @@ from typing import Tuple
 
 import cv2
 import ffmpeg
-import librosa
 import numpy as np
 from loguru import logger
 

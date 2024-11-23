@@ -6,7 +6,9 @@ idna==3.10
 loguru==0.7.2
 numpy==2.1.3
 opencv-python==4.10.0.84
+pillow==11.0.0
 pylizlib==0.1.7
 requests==2.32.3
+sd-parsers==0.4
 setuptools==75.5.0
 urllib3==2.2.3

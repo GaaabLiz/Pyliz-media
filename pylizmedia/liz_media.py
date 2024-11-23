@@ -2,8 +2,13 @@ import json
 import os
 from typing import Optional, List
 
+import cv2
+import ffmpeg
+from loguru import logger
 from pylizlib.model.fileType import FileType
 from pylizlib.os import fileutils
+from sd_parsers import ParserManager
+from sd_parsers.data import PromptInfo
 
 from pylizmedia.model.ai_payload_info import AiPayloadMediaInfo
 
@@ -36,28 +41,64 @@ class LizMedia:
         self.ai_description: Optional[str] = None
         self.ai_tags: Optional[List[str]] = None
         self.ai_scanned: bool = False
+        self.ai_generated: bool = False
+        self.ai_metadata: PromptInfo | None = None
+        self.__check_for_ai_metadata()
 
         # video info
         if self.is_video:
-            self.duration: Optional[float] = self.get_video_duration()
+            self.duration_sec: Optional[float] = self.get_video_duration_seconds()
+            self.duration_min: Optional[float] = self.duration_sec / 60
             self.frame_rate: Optional[float] = self.get_video_frame_rate()
         else:
-            self.duration = None
+            self.duration_sec = None
+            self.duration_min = None
             self.frame_rate = None
+
+    def __check_for_ai_metadata(self):
+        parser_manager = ParserManager()
+        prompt_info: PromptInfo | None = parser_manager.parse(self.path)
+        if prompt_info is not None:
+            self.ai_metadata = prompt_info
+            self.ai_generated = True
 
 
     def get_desc_plus_text(self):
         if self.ai_ocr_text is not None and len(self.ai_ocr_text) > 0:
-            return self.ai_description + " This media includes texts: " + self.ai
+            text_array = []
+            for text in self.ai_ocr_text:
+                text_array.append(text)
+            return self.ai_description + " This media includes texts: " + " ".join(text_array)
         return self.ai_description
 
-    def get_video_duration(self) -> float:
-        # Logica per ottenere la durata del video (da implementare)
+    def get_video_duration_seconds(self) -> float:
+        try:
+            probe = ffmpeg.probe(self.path)
+            duration = float(probe['format']['duration'])
+            return duration
+        except Exception as e:
+            logger.error(f"Error getting video duration: {str(e)}")
         return 0.0
 
     def get_video_frame_rate(self) -> float:
-        # Logica per ottenere il frame rate del video (da implementare)
-        return 0.0
+        """
+        Restituisce il frame rate (FPS) del video.
+        """
+        try:
+            video = cv2.VideoCapture(self.path)
+            if not video.isOpened():
+                print("Errore: impossibile aprire il video.")
+                return 0.0
+
+            # Ottieni il frame rate
+            fps = video.get(cv2.CAP_PROP_FPS)
+            video.release()
+
+            # Ritorna il valore di FPS
+            return fps
+        except Exception as e:
+            print(f"Errore nel calcolo del frame rate del video: {e}")
+            return 0.0
 
     def to_dict_only_ai(self):
         return {
