@@ -56,11 +56,14 @@ class LizMedia:
             self.frame_rate = None
 
     def __check_for_ai_metadata(self):
-        parser_manager = ParserManager()
-        prompt_info: PromptInfo | None = parser_manager.parse(self.path)
-        if prompt_info is not None:
-            self.ai_metadata = prompt_info
-            self.ai_generated = True
+        try:
+            parser_manager = ParserManager()
+            prompt_info: PromptInfo | None = parser_manager.parse(self.path)
+            if prompt_info is not None:
+                self.ai_metadata = prompt_info
+                self.ai_generated = True
+        except Exception as e:
+            logger.error(f"Error checking for AI metadata with sdParser: {str(e)}")
 
 
     def get_desc_plus_text(self):
