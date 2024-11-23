@@ -57,11 +57,12 @@ class LizMedia:
 
     def __check_for_ai_metadata(self):
         try:
-            parser_manager = ParserManager()
-            prompt_info: PromptInfo | None = parser_manager.parse(self.path)
-            if prompt_info is not None:
-                self.ai_metadata = prompt_info
-                self.ai_generated = True
+            if self.is_image:
+                parser_manager = ParserManager()
+                prompt_info: PromptInfo | None = parser_manager.parse(self.path)
+                if prompt_info is not None:
+                    self.ai_metadata = prompt_info
+                    self.ai_generated = True
         except Exception as e:
             logger.error(f"Error checking for AI metadata with sdParser: {str(e)}")
 
