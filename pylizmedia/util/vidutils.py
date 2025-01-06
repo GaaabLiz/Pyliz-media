@@ -4,7 +4,7 @@ from typing import Tuple
 import cv2
 import ffmpeg
 import numpy as np
-from loguru import logger
+from pylizmedia.log.pylizMediaLogging import logger
 
 from pylizlib.os import pathutils
 
@@ -87,6 +87,7 @@ class VideoUtils:
                 cv2.imwrite(frame_path, frame)
                 saved_frame_count += 1
                 prev_frame_gray = frame_gray  # Aggiorna il frame precedente
+                logger.trace(f"Frame {frame_count} saved because threshold exceeded: {mean_diff}")
 
             frame_count += 1
             logger.debug(f"Frame {frame_count} processed, {saved_frame_count} frames saved")
