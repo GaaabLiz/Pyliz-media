@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from pydantic import BaseModel
 
 
 class AiPayloadMediaInfo2:
@@ -14,8 +15,8 @@ class AiPayloadMediaInfo2:
         return f"Description: {self.description}, Tags: {self.tags}, Filename: {self.filename}, Text: {self.text}"
 
 
-@dataclass
-class AiPayloadMediaInfo:
+
+class AiPayloadMediaInfo(BaseModel):
     description: str
     tags: list[str]
     filename: str
