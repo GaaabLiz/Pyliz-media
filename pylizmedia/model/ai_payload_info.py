@@ -25,3 +25,6 @@ class AiPayloadMediaInfo(BaseModel):
     def __str__(self):
         return f"Description: {self.description}, Tags: {self.tags}, Filename: {self.filename}, Text: {self.text}"
 
+    class Config:
+        extra = "ignore"
+

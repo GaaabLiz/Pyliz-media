@@ -6,14 +6,16 @@ import ffmpeg
 import numpy as np
 from pylizmedia.log.pylizMediaLogging import logger
 
-from pylizlib.os import pathutils
+from pylizlib.os import pathutils, fileutils
 
 
 class VideoUtils:
 
     @staticmethod
-    def extract_audio(video_path, audio_path):
-        # Estrae solo la traccia audio dal video
+    def extract_audio(video_path, audio_path, use_existing=False):
+        if use_existing and os.path.exists(audio_path):
+            logger.debug(f"Audio file for {pathutils.get_filename(video_path)} already exist: {audio_path}")
+            return
         ffmpeg.input(video_path).output(audio_path).run(overwrite_output=True)
 
     @staticmethod
@@ -41,9 +43,19 @@ class VideoUtils:
             raise
 
     @staticmethod
-    def extract_frames(video_path, output_folder, difference_threshold=30):
+    def extract_frames(
+            video_path,
+            output_folder,
+            difference_threshold=30,
+            use_existing=True
+    ):
         pathutils.check_path_file(video_path)
         pathutils.check_path(output_folder, True)
+
+        # Se esistono già i frame, non fare nulla
+        if use_existing and len(os.listdir(output_folder)) > 0:
+            logger.debug(f"Frames already exist in {output_folder}. Exiting frame extraction.")
+            return
 
         # Apri il video
         cap = cv2.VideoCapture(video_path)
