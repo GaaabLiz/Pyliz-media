@@ -1,4 +1,5 @@
 import os
+import shutil
 from typing import Tuple
 
 import cv2
@@ -7,6 +8,10 @@ import numpy as np
 from pylizmedia.log.pylizMediaLogging import logger
 
 from pylizlib.os import pathutils, fileutils
+
+from pylizmedia.model.frameoptions import FrameOptions
+from pylizmedia.util import imgutils
+from pylizmedia.video.FrameSelectors import FrameSelector
 
 
 class VideoUtils:
@@ -42,8 +47,34 @@ class VideoUtils:
             logger.error(f"Error extracting audio with librosa: {str(e)}")
             raise
 
+
     @staticmethod
-    def extract_frames(
+    def extract_frame_advanced(
+            video_path,
+            frame_folder,
+            frame_selector: FrameSelector,
+            frame_options: FrameOptions = FrameOptions(),
+            use_existing=True
+    ):
+        # # controllo se esistono già i frame
+        # if use_existing and len(os.listdir(frame_folder)) > 0:
+        #     logger.debug(f"Frames already exist in {frame_folder}. Reading existing frames...")
+        #     frames = imgutils.load_images_as_ndarrays(frame_folder)
+        #     if len(frames) > 0:
+        #         return frames
+        #     else:
+        #         logger.warning(f"Frames has been found in {frame_folder}, but no frames were loaded. Extracting frames again...")
+        #         shutil.rmtree(frame_folder)
+
+        # estratto i frame con il frame selector
+        frame_list = frame_selector.select_frames(video_path, frame_options)
+        frames_list_images = [frame.image for frame in frame_list]
+        imgutils.save_ndarrays_as_images(frames_list_images, frame_folder)
+        return frame_list
+
+
+    @staticmethod
+    def extract_frames_thr(
             video_path,
             output_folder,
             difference_threshold=30,
