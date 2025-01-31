@@ -2,8 +2,7 @@ import os
 
 import numpy as np
 from PIL import Image
-
-from pylizmedia.log.pylizMediaLogging import logger
+from loguru import logger
 
 
 def save_ndarrays_as_images(ndarray_list, output_path, prefix='frame', extension='png'):

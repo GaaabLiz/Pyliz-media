@@ -1,6 +1,6 @@
 from typing import List
 
-from pylizmedia.log.pylizMediaLogging import logger
+from loguru import logger
 
 
 class FrameOptions:
