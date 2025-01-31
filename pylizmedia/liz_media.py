@@ -91,7 +91,7 @@ class LizMedia:
         try:
             video = cv2.VideoCapture(self.path)
             if not video.isOpened():
-                print("Errore: impossibile aprire il video.")
+                logger.error("Errore: impossibile aprire il video.")
                 return 0.0
 
             # Ottieni il frame rate
@@ -101,7 +101,7 @@ class LizMedia:
             # Ritorna il valore di FPS
             return fps
         except Exception as e:
-            print(f"Errore nel calcolo del frame rate del video: {e}")
+            logger.error(f"Errore nel calcolo del frame rate del video: {e}")
             return 0.0
 
     def to_dict_only_ai(self):

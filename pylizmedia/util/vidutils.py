@@ -5,10 +5,8 @@ from typing import Tuple
 import cv2
 import ffmpeg
 import numpy as np
-from pylizmedia.log.pylizMediaLogging import logger
-
+from loguru import logger
 from pylizlib.os import pathutils, fileutils
-
 from pylizmedia.model.frameoptions import FrameOptions
 from pylizmedia.util import imgutils
 from pylizmedia.video.FrameSelectors import FrameSelector
