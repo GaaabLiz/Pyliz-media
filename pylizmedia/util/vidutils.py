@@ -1,5 +1,4 @@
 import os
-import shutil
 from typing import Tuple
 
 import cv2
