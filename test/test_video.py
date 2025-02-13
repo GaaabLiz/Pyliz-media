@@ -5,6 +5,7 @@ import unittest
 import sys
 import os
 
+import pylizlib.log.pylizLogging
 from loguru import logger
 from pylizlib.os import pathutils
 

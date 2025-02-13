@@ -9,20 +9,32 @@ from pylizlib.os import pathutils
 
 LOGGER_PYLIZ_MEDIA_NAME = "PylizMedia"
 
-# path_log = os.path.join(pathutils.get_app_home_dir(".pyliz"), "logs")
-# pathutils.check_path(path_log, True)
-# path_log_file = os.path.join(path_log, "PylizMedia.log")
-#
-# config = {
-#     "handlers": [
-#         {"sink": sys.stdout, "format": "{time:HH:mm:ss} [{level}]: {message}", "level": "TRACE"},
-#         {"sink": path_log_file, "serialize": True, "level": "TRACE"},
-#     ]
-# }
-#
-# logger.configure(**config)
-logger.disable(LOGGER_PYLIZ_MEDIA_NAME)
+# Configurazione di default, disattivata
+def configure_logger():
+    logger.remove()  # Rimuove eventuali configurazioni esistenti
 
+    path_log_file = os.path.join(os.getcwd(), "pylizmedia.log")
+
+    config = {
+        "handlers": [
+            {"sink": sys.stdout, "format": "{time:HH:mm:ss} [{level}]: {message}", "level": "TRACE"},
+            {"sink": path_log_file, "serialize": True, "level": "TRACE"},
+        ]
+    }
+    logger.configure(**config)
+    logger.disable(LOGGER_PYLIZ_MEDIA_NAME)  # Disabilita i log all'avvio
+
+# Configura il logger al primo import
+configure_logger()
+
+# Funzioni per attivare/disattivare i log
+def enable_logging():
+    logger.enable(__name__)
+    logger.enable(LOGGER_PYLIZ_MEDIA_NAME)
+
+def disable_logging():
+    logger.disable(__name__)
+    logger.disable(LOGGER_PYLIZ_MEDIA_NAME)
 
 def pyblizmedia_log_test():
     logger.info("This is a test log message from PylizMedia.")
