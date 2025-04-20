@@ -1,0 +1,15 @@
+[project]
+name = "pylizmedia"
+version = "0.0.20"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ffmpeg-python>=0.2.0",
+    "numpy>=2.2.5",
+    "opencv-python>=4.11.0.86",
+    "packaging>=25.0",
+    "pillow>=11.2.1",
+    "pydantic>=2.11.3",
+    "pylizlib>=0.1.45",
+]
