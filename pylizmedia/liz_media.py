@@ -10,7 +10,7 @@ from pylizlib.os import fileutils
 from sd_parsers import ParserManager
 from sd_parsers.data import PromptInfo
 
-from pylizmedia.model.ai_payload_info import AiPayloadMediaInfo
+from pylizmedia.domain.ai import AiPayloadMediaInfo
 
 
 class LizMedia:

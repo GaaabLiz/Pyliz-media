@@ -5,8 +5,8 @@ import cv2
 import ffmpeg
 import numpy as np
 from loguru import logger
-from pylizlib.os import pathutils, fileutils
-from pylizmedia.model.frameoptions import FrameOptions
+from pylizlib.os import pathutils
+from pylizmedia.domain.frame import FrameOptions
 from pylizmedia.util import imgutils
 from pylizmedia.video.FrameSelectors import FrameSelector
 
