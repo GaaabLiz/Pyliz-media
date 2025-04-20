@@ -1,13 +1,12 @@
-# frame_selector.py
+
 import cv2
 import numpy as np
 from typing import List, Tuple
 from abc import ABC, abstractmethod
 
-from loguru import logger
-
 from pylizmedia.domain.video import Frame, SceneType
 from pylizmedia.domain.frame import FrameOptions
+from pylizmedia.log.pylizLogger import logger
 
 
 class FrameSelector(ABC):
