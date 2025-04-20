@@ -4,13 +4,15 @@ from typing import Optional, List
 
 import cv2
 import ffmpeg
-from loguru import logger
-from pylizlib.model.fileType import FileType
+
 from pylizlib.os import fileutils
 from sd_parsers import ParserManager
 from sd_parsers.data import PromptInfo
 
 from pylizmedia.domain.ai import AiPayloadMediaInfo
+from pylizlib.domain.fileType import FileType
+
+from pylizmedia.log.pylizLogger import logger
 
 
 class LizMedia:

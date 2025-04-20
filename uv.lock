@@ -329,6 +329,7 @@ dependencies = [
     { name = "pillow" },
     { name = "pydantic" },
     { name = "pylizlib" },
+    { name = "sd-parsers" },
 ]
 
 [package.metadata]
@@ -340,6 +341,7 @@ requires-dist = [
     { name = "pillow", specifier = ">=11.2.1" },
     { name = "pydantic", specifier = ">=2.11.3" },
     { name = "pylizlib", specifier = ">=0.1.45" },
+    { name = "sd-parsers", specifier = ">=0.6" },
 ]
 
 [[package]]
@@ -368,6 +370,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a1/53/830aa4c3066a8ab0ae9a9955976fb770fe9c6102117c8ec4ab3ea62d89e8/rich-14.0.0.tar.gz", hash = "sha256:82f1bc23a6a21ebca4ae0c45af9bdbc492ed20231dcb63f297d6d1021a9d5725", size = 224078 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/0d/9b/63f4c7ebc259242c89b3acafdb37b41d1185c07ff0011164674e9076b491/rich-14.0.0-py3-none-any.whl", hash = "sha256:1c9491e1951aac09caffd42f448ee3d04e58923ffe14993f6e83068dc395d7e0", size = 243229 },
+]
+
+[[package]]
+name = "sd-parsers"
+version = "0.6"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pillow" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2c/3a/ca5ca165909a6906d7d5accfa425fe521e2d9186b552b82b3efbc6ad0a43/sd_parsers-0.6.tar.gz", hash = "sha256:c8ce15162ebed6bc9aaa292960b6815e6a57ea42a0c4ecd9309eee48fb0d7d83", size = 119770 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a6/18/429ab8225af8d9aa23fd6cc5a9f7a82ecf98497af509049f49dc5fa3610b/sd_parsers-0.6-py3-none-any.whl", hash = "sha256:1c025ab1c5f61ad816777a0515d56cfb08166e002ab706b34e4dc42433ce8026", size = 28709 },
 ]
 
 [[package]]

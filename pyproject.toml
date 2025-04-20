@@ -12,4 +12,5 @@ dependencies = [
     "pillow>=11.2.1",
     "pydantic>=2.11.3",
     "pylizlib>=0.1.45",
+    "sd-parsers>=0.6",
 ]
